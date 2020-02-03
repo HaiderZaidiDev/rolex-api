@@ -10,4 +10,8 @@
 # Updated:     
 #-----------------------------------------------------------------------------
 
-def menu():
+def login():
+  username = input('Username: ')
+  password = input('Password: ')
+  hash = '{}:{}'.format(username, password) # Format for verificiation.
+
