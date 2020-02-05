@@ -14,10 +14,10 @@
 import os
 
 def error(errorMessage):
-  print("Error: {}.".format(str(errorMessage)))
+  print("Error: {}.".format(errorMessage))
   os.system('cls')
 
-def menu(username):
+def menu(str(username)):
   print("Welcome, {].".format(username))
   try:
     optionSelect = int(input('Please select an option below: '))
@@ -38,9 +38,25 @@ def menu(username):
   elif optionSelect = 3:
     reports()
   else:
-    error(Invalid option selected, please try again)
+    error("Invalid option selected, please try again")
     menu()
- 
+
+def transactions():
+  subMenuSelect = input('Please select an option below: ')
+  print("""
+  1. Sale \n
+  2. Return
+  """)
+  
+  if subMenuSelect = 1:
+    sale()
+  elif subMenuSelect = 2:
+    refund()
+  
+  def sale():
+    
+    
+  
   
 def login():
   username = input('Username: ')
