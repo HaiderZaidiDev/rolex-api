@@ -12,10 +12,21 @@
 
 ## Watches 
 import os
+revenue = 0
+expenses = 0 
+netIncome = revenue - expenses
 
+
+inventory = {}
 def error(errorMessage):
   print("Error: {}.".format(errorMessage))
   os.system('cls')
+
+def priceApi(collection, modelNumber):
+  import requests
+  masterAPI = "http://www.rolex.com/watches/{0}.api.price.{1}.CA.json".format(collection, modelNumber)
+  pageData = requests.get(masterAPI).json()
+  return pageData
 
 def menu(str(username)):
   print("Welcome, {].".format(username))
@@ -29,6 +40,8 @@ def menu(str(username)):
   1. Process Transaction \n
   2. Inventory Management \n
   3. Sales Reports
+  4. Financial Records 
+  
   """)
   
   if optionSelect = 1:
@@ -54,6 +67,9 @@ def transactions():
     refund()
   
   def sale():
+    collection = input('Collection (e.g Submariner): ')
+    modelNumber = input('Model Number, as seen on website links (e.g m116610lv-0002): ')
+    priceApi(collection, modelNumber)
     
     
   
