@@ -49,7 +49,7 @@ def priceCheck():
                                           modelNumber, 
                                           price['formattedPrice'])) # Outputs the formatted price of the Rolex.
         
-#--- Login GUI
+# Login GUI. 
 gui = Tk() 
 gui.title('Rolex: Employee Terminal') 
 gui.geometry('350x400') # Sets size of terminal, pixel dimensions.
