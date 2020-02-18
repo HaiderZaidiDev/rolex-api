@@ -2,134 +2,103 @@
 # Name:        documentation.py
 # Purpose:     To provide an exemplar of documentation stantards in Python.
 #
-# References: 	This script uses the PEP-8 style guide
-#				here: https://www.python.org/dev/peps/pep-0008/
+# References: 	This script uses PEP-257 Docstring conventions
+#				here: https://www.python.org/dev/peps/pep-0257/
 #
 # Author:      Haider Zaidi
 # Created:     03-Feb-2020
-# Updated:
+# Updated: 2/18/2020
 #-----------------------------------------------------------------------------
 
 import os
 from tkinter import * # GUI Library
 from PIL import ImageTk, Image
+import requests
+import time
 
-revenue = 0
-expenses = 0
-netIncome = revenue - expenses
-inventory = {}
-
+filepath = '' # Filepath of document folder, needed for database. 
 
 def error(errorMessage):
+  """Prints a customized error message on call.
+  
+  Keyword arguments:
+  errorMessage -- The error message to be printed.
+  """
   print("Error: {}.".format(errorMessage))
-  os.system('cls')
+  time.sleep(2) # Delay to ensure error message can be read.
+  os.system('cls') # Clears terminal.
 
 def priceApi(collection, modelNumber):
-  import requests
-  masterAPI = "http://www.rolex.com/watches/{0}.api.price.{1}.CA.json".format(collection, modelNumber)
-  pageData = requests.get(masterAPI).json()
+  """Accesses the Rolex API to return data on a specific watch.
+  
+  Keyword arguments:
+  collection -- The collection the Rolex belongs to.
+  modelNumber -- the modelNumber of the Rolex.
+  """
+  masterAPI = "http://www.rolex.com/watches/{0}.api.price.{1}.CA.json".format(collection,
+                                                                              modelNumber) # Inserts user input into API link.
+  pageData = requests.get(masterAPI).json() 
   return pageData
 
-def menu():
-  try:
-    print("1. Process Transaction\n2. Inventory Management")
-    print("3. Sales Reports\n4. Financial Records \n")
-    optionSelect = int(input('Please select an option above: '))
-  except ValueError:
-    error("Only integer values are accepted, please try again")
-    menu(" ") # Fetch from SQL. 
-
-  if optionSelect == 1:
-    transactionMenu()
-  #elif optionSelect = 2:
-    #inventory()
-  elif optionSelect = 3:
-     reports()
-  else:
-    error("Invalid option selected, please try again")
-    menu()
-   
-def reports():
-  print("Revenue: {0}\nExpenses: {1}\nNet income: {2}".format(revenue, expenses, netincome))
-  menuReturn = input("Press enter to return to the menu.")
-  if menuReturn == '':
-    menu()
-  
-
-def transaction(process):
+def priceCheck():
+  """Returns the price of a Rolex given its collection and model number."""
     collection = input('Collection (e.g Submariner): ')
     modelNumber = input('Model Number, as seen on website links (e.g m116610lv-0002): ')
-    try:
-        price = priceApi(collection, modelNumber)
-        print("The {0} {1} costs ${2}".format(collection.title(),modelNumber, price['formattedPrice']))
-        confirmSale = input("""Press the "ENTER" key to confirm the {}. """.format(process))
-
-    except ValueError:
-        error("Invalid collection or model number entered, please try again.")
-        sale()
-
-def transactionMenu():
-  print("1. Sale\n2. Return\n 3. Menu")
-  try:
-      subMenuSelect = int(input('Please select an option above: '))
-  except ValueError:
-      error("Only integer values are accepted, please try again")
-      menu() 
-
-  if subMenuSelect == 1:
-    transaction("sale")
-  if subMenuSelect == 2:
-    transaction("return")
-  if subMenuSelect == 3:
-    menu()
-
-
+    price = priceApi(collection, modelNumber)
+    print("The {0} {1} costs ${2}".format(collection.title(),
+                                          modelNumber, 
+                                          price['formattedPrice'])) # Outputs the formatted price of the Rolex.
+        
 #--- Login GUI
 gui = Tk() 
-gui.title('Rolex: Employee Terminal') #
-gui.geometry('350x400') 
+gui.title('Rolex: Employee Terminal') 
+gui.geometry('350x400') # Sets size of terminal, pixel dimensions.
 
 logoLoad = ImageTk.PhotoImage(Image.open("rolex-logo.png").resize((300,225))) 
 logo = Label(gui, image = logoLoad) 
-logo.place(x = 23, y = -25) 
+logo.place(x = 23, y = -25) # Aligns logo to top center. 
 
-
+employeeNumAsk = Entry(gui, textvariable = employeeNumEntry, width = 47) # Employee number input box. 
+employeeNumAsk.place(x = 30, y = 175) # Aligns input box to middle center.
 
 employeeNumEntry = StringVar()
-employeeNumText = Label(gui, text = "Employee Number") 
-employeeNumText.place(x = 27, y = 155 ) 
+employeeNumText = Label(gui, text = "Employee Number") # Employee number label.
+employeeNumText.place(x = 27, y = 155 ) # Aligns text to middle center, above input box. 
 
-employeeNumAsk = Entry(gui, textvariable = employeeNumEntry, width = 47) 
-employeeNumAsk.place(x = 30, y = 175) 
-
+employeePassAsk = Entry(gui, textvariable = employeePassEntry, show='*', width = 47) # Employee password input box.
+employeePassAsk.place(x = 30, y = 230) # Aligns middle center, below employee number input box. 
 
 employeePassEntry = StringVar() 
-employeePassText = Label(gui, text = "Employee Password") 
-employeePassText.place(x = 27, y = 210) 
+employeePassText = Label(gui, text = "Employee Password")  # Employee password label.
+employeePassText.place(x = 27, y = 210)  # Aligns middle center, above employee password input box. 
 
-employeePassAsk = Entry(gui, textvariable = employeePassEntry, show='*', width = 47) 
-employeePassAsk.place(x = 30, y = 230) 
 
 def loginPage(): 
+  """Verifies credentials inputted through the GUI.
+  
+  Keyword arguments:
+  hash -- Formatted login credentials provided by the user.
+  userData -- Database of login credentials (plain text).
+  failedAttempts -- Count of invalid login attempts. 
+  """
     employeeNum = employeeNumEntry.get().lstrip(' ') 
     employeePass = employeePassEntry.get().lstrip(' ') 
-    hash = "{0}:{1}".format(employeeNum, employeePass)
-    userData = open('C:/Users/ferre/Desktop/ICS4U-master/userdata.txt', 'r') 
+    hash = "{0}:{1}".format(employeeNum, 
+                            employeePass) # Formats input to match database.
+    userData = open('{}/userdata.txt'.format(filepath), 'r') 
     userDataContent = userData.read() 
     userData.close() 
 
-
     if hash in userDataContent: 
-      gui.destroy() 
+      gui.destroy() # Closes GUI window. 
       print('Access granted.') 
       print("Welcome, {}.".format(username))
-      menu() 
-
+      priceCheck() 
 
     else: 
       failedAttempts['failed'] += 1 
       attemptsRemaining = 3 - failedAttempts['failed'] 
-
+      
       if failedAttempts['failed'] == 3: 
         print('Maximum failed attempts reached, you have been locked out of the terminal.') 
         time.sleep(2)
@@ -138,11 +107,8 @@ def loginPage():
         print('Incorrect agent number/password entered, try again. You have ' + str(attemptsRemaining) + ' attempts remaining.')
         os.system('cls') 
         
-loginButton = Button(gui, text="Login", command = loginPage, width = 40) 
+loginButton = Button(gui, text="Login", command = loginPage, width = 40) # Login button.
 loginButton.place(x = 28, y = 270) 
-
-
-
 
 gui.mainloop() # Runs gui.
 
