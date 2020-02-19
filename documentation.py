@@ -96,8 +96,8 @@ def loginPage():
       priceCheck() 
 
     else: 
-      failedAttempts['failed'] += 1 
-      attemptsRemaining = 3 - failedAttempts['failed'] 
+      failedAttempts['failed'] += 1 # Counts number of failled login attempts.
+      attemptsRemaining = 3 - failedAttempts['failed']
       
       if failedAttempts['failed'] == 3: 
         print('Maximum failed attempts reached, you have been locked out of the terminal.') 
@@ -108,7 +108,7 @@ def loginPage():
         os.system('cls') 
         
 loginButton = Button(gui, text="Login", command = loginPage, width = 40) # Login button.
-loginButton.place(x = 28, y = 270) 
+loginButton.place(x = 28, y = 270) # Aligns login button middle bottom.
 
 gui.mainloop() # Runs gui.
 
