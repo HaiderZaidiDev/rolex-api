@@ -16,7 +16,7 @@ from PIL import ImageTk, Image
 import requests
 import time
 
-filepath = 'C:/Users/ferre/Desktop/CCC' # Filepath of document folder, needed for database.
+filepath = '' # Filepath of document folder, needed for database.
 failedAttempts = {'failed': 0} # Count of failed login attempts. 
 
 def error(errorMessage):
