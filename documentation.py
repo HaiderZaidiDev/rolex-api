@@ -63,7 +63,7 @@ def priceApi(collection, modelNumber):
   return pageData
 
 def priceCheck():
-  """Returns the price of a Rolex given its collection and model number.
+  """Outputs the price of a Rolex given its collection and model number.
   """
   collection = input('Collection (e.g Submariner): ')
   modelNumber = input('Model Number, as seen on website links (e.g m116610lv-0002): ')
