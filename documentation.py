@@ -2,12 +2,12 @@
 # Name:        documentation.py
 # Purpose:     To provide an exemplar of documentation stantards in Python.
 #
-# References: 	This script uses PEP-257 Docstring conventions found
-#               here: https://www.python.org/dev/peps/pep-0257/
+# References: 	This script uses NumPy docstring conventions found
+#               here: https://numpydoc.readthedocs.io/en/latest/format.html
 #
 # Author:      Haider Zaidi
 # Created:     03-Feb-2020
-# Updated: 2/18/2020
+# Updated:     2/28/2020 (Formatting, spelling)
 #-----------------------------------------------------------------------------
 
 import os
