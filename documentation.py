@@ -12,7 +12,7 @@
 
 import os
 from tkinter import * # GUI Library
-from PIL import ImageTk, Image
+from PIL import ImageTk, Image # Library for use of images in Tkinter
 import requests
 import time
 
@@ -26,7 +26,7 @@ def error(errorMessage):
   ----------
   errorMessage: str
                 The error message to be printed.
-
+                
   """
   print("Error: {}.".format(errorMessage))
   time.sleep(2) # Delay to ensure error message can be read.
