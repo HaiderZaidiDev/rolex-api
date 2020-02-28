@@ -36,8 +36,7 @@ def priceApi(collection, modelNumber):
   """Returns data from the Rolex API on a given watch.
 
   Fetches data, primarily concerning the price, of a
-  Rolex watch given the collection and model number
-  gathered in priceCheck().
+  Rolex watch given the collection and model number.
 
   Parameters
   ----------
