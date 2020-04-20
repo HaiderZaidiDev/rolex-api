@@ -1,9 +1,5 @@
-# ICS4U: Documentation Assignment
-This script was completed as part of a documentation assignment in ICS4U to demonstrate
-the use of following documentation standards for a programming language. 
-
 ## Functionality
-The script was founded upon the basis of an employee terminal for a Rolex botique, containing the following features:
+The script was founded upon the basis of a pseudo employee terminal for a Rolex botique, containing the following features:
 * A GUI (Graphical user interface) login system. 
 * Ability to check the price of any Rolex watch given its collection and model number (e.g Submariner, m116610lv-0002). 
 
